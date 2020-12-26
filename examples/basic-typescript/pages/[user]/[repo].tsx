@@ -11,7 +11,7 @@ function Repo() {
     forks_count: number
     stargazers_count: number
     watchers: number
-  }>('/api/data?id=' + id, fetch)
+  }>(`/api/data?id=${  id}`, fetch)
 
   return (
     <div style={{ textAlign: 'center' }}>

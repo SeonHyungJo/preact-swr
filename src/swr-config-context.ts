@@ -1,4 +1,4 @@
-import { createContext } from 'react'
+import { createContext } from 'preact'
 
 import { ConfigInterface } from './types'
 

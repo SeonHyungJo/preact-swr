@@ -1,7 +1,10 @@
 export * from './use-swr'
 import { default as useSWR } from './use-swr'
+
 export {
-  useSWRInfinite,
+  useSWRInfinite
+} from './use-swr-infinite'
+export {
   SWRInfiniteConfigInterface,
   SWRInfiniteResponseInterface
 } from './use-swr-infinite'

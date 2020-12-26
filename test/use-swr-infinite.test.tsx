@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'preact/hook'
 import {
   render,
   waitForDomChange,
   fireEvent,
   act
-} from '@testing-library/react'
+} from '@testing-library/preact'
 
 import { useSWRInfinite } from '../src'
 

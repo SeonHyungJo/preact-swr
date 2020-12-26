@@ -4,13 +4,13 @@ import {
   fireEvent,
   render,
   waitForDomChange
-} from '@testing-library/react'
-import React, { ReactNode, Suspense, useEffect, useState } from 'react'
+} from '@testing-library/preact'
+import { useEffect, useState } from 'preact/hooks'
 
 import useSWR, { mutate, SWRConfig, trigger, cache } from '../src'
 import Cache from '../src/cache'
 
-class ErrorBoundary extends React.Component<{ fallback: ReactNode }> {
+class ErrorBoundary extends Component<{ fallback: ReactNode }> {
   state = { hasError: false }
   static getDerivedStateFromError() {
     return {
@@ -515,7 +515,7 @@ describe('useSWR - refresh', () => {
   it('should update data upon interval changes', async () => {
     let count = 0
     function Page() {
-      const [int, setInt] = React.useState(200)
+      const [int, setInt] = useState(200)
       const { data } = useSWR('/api', () => count++, {
         refreshInterval: int,
         dedupingInterval: 100
@@ -897,7 +897,7 @@ describe('useSWR - error', () => {
         'error-3',
         () => {
           return new Promise((_, rej) =>
-            setTimeout(() => rej(new Error('error: ' + count++)), 100)
+            setTimeout(() => rej(new Error(`error: ${  count++}`)), 100)
           )
         },
         {
@@ -956,7 +956,7 @@ describe('useSWR - error', () => {
         'error-5',
         () => {
           return new Promise((_, rej) =>
-            setTimeout(() => rej(new Error('error: ' + count++)), 100)
+            setTimeout(() => rej(new Error(`error: ${  count++}`)), 100)
           )
         },
         {
@@ -1073,7 +1073,7 @@ describe('useSWR - error', () => {
         'error-8',
         () => {
           return new Promise((_, rej) =>
-            setTimeout(() => rej(new Error('error: ' + count++)), 100)
+            setTimeout(() => rej(new Error(`error: ${  count++}`)), 100)
           )
         },
         {
@@ -2118,9 +2118,9 @@ describe('useSWR - cache', () => {
 
     // render using custom cache
     const { queryByText, findByText } = render(
-      <React.Suspense fallback={null}>
+      <Suspense fallback={null}>
         <Page />
-      </React.Suspense>
+      </Suspense>
     )
 
     // content should come from custom cache
@@ -2261,7 +2261,7 @@ describe('useSWR - key', () => {
     }
 
     function Page() {
-      const [sampleKey, setKey] = React.useState(1)
+      const [sampleKey, setKey] = useState(1)
       const { data } = useSWR(
         `key-2-${sampleKey}`,
         key => samples[key.replace('key-2-', '')]
@@ -2309,7 +2309,7 @@ describe('useSWR - key', () => {
     const fetcher = fn => fn()
 
     function Page() {
-      const [id, setId] = React.useState('first')
+      const [id, setId] = useState('first')
       updateId = setId
       const fnWithClosure = closureFactory(id)
       const { data } = useSWR([fnWithClosure], fetcher)

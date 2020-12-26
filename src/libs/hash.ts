@@ -25,19 +25,17 @@ export default function hash(args: any[]): string {
       // 123         -> '123'
       // "null"      -> '"null"'
       if (typeof args[i] === 'string') {
-        _hash = '"' + args[i] + '"'
+        _hash = `"${  args[i]  }"`
       } else {
         _hash = String(args[i])
       }
-    } else {
-      if (!table.has(args[i])) {
+    } else if (!table.has(args[i])) {
         _hash = counter
         table.set(args[i], counter++)
       } else {
         _hash = table.get(args[i])
       }
-    }
-    key += '@' + _hash
+    key += `@${  _hash}`
   }
   return key
 }

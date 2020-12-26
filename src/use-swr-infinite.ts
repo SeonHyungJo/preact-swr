@@ -1,4 +1,10 @@
-import { useContext, useRef, useState, useEffect, useCallback } from 'react'
+import {
+  useContext,
+  useRef,
+  useState,
+  useEffect,
+  useCallback
+} from 'preact/hooks'
 
 import defaultConfig, { cache } from './config'
 import SWRConfigContext from './swr-config-context'
@@ -9,7 +15,7 @@ type KeyLoader<Data = any> = (
   index: number,
   previousPageData: Data | null
 ) => keyType
-type SWRInfiniteConfigInterface<Data = any, Error = any> = ConfigInterface<
+export type SWRInfiniteConfigInterface<Data = any, Error = any> = ConfigInterface<
   Data[],
   Error,
   fetcherFn<Data[]>
@@ -18,7 +24,7 @@ type SWRInfiniteConfigInterface<Data = any, Error = any> = ConfigInterface<
   revalidateAll?: boolean
   persistSize?: boolean
 }
-type SWRInfiniteResponseInterface<Data = any, Error = any> = responseInterface<
+export type SWRInfiniteResponseInterface<Data = any, Error = any> = responseInterface<
   Data[],
   Error
 > & {
@@ -53,13 +59,11 @@ function useSWRInfinite<Data = any, Error = any>(
   if (args.length > 2) {
     fn = args[1]
     config = args[2]
-  } else {
-    if (typeof args[1] === 'function') {
+  } else if (typeof args[1] === 'function') {
       fn = args[1]
     } else if (typeof args[1] === 'object') {
       config = args[1]
     }
-  }
 
   config = Object.assign(
     {},
@@ -95,14 +99,14 @@ function useSWRInfinite<Data = any, Error = any>(
   // here we get the key of the fetcher context cache
   let contextCacheKey: string | null = null
   if (firstPageKey) {
-    contextCacheKey = 'context@' + firstPageKey
+    contextCacheKey = `context@${  firstPageKey}`
   }
 
   // page count is cached as well, so when navigating the list can be restored
   let pageCountCacheKey: string | null = null
   let cachedPageSize
   if (firstPageKey) {
-    pageCountCacheKey = 'size@' + firstPageKey
+    pageCountCacheKey = `size@${  firstPageKey}`
     cachedPageSize = cache.get(pageCountCacheKey)
   }
   const pageCountRef = useRef<number>(cachedPageSize || initialSize)
@@ -224,7 +228,5 @@ function useSWRInfinite<Data = any, Error = any>(
 }
 
 export {
-  useSWRInfinite,
-  SWRInfiniteConfigInterface,
-  SWRInfiniteResponseInterface
+  useSWRInfinite
 }

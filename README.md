@@ -22,7 +22,7 @@
 
 [swr.vercel.app](https://swr.vercel.app)
 
-SWR is a React Hooks library for remote data fetching.
+SWR is a Preact Hooks library for remote data fetching.
 
 The name “**SWR**” is derived from `stale-while-revalidate`, a cache invalidation strategy popularized by [HTTP RFC 5861](https://tools.ietf.org/html/rfc5861).
 **SWR** first returns the data from cache (stale), then sends the fetch request (revalidate), and finally comes with the up-to-date data again.
@@ -62,7 +62,7 @@ function Profile() {
 }
 ```
 
-In this example, the React Hook `useSWR` accepts a `key` and a `fetcher` function.
+In this example, the Preact Hook `useSWR` accepts a `key` and a `fetcher` function.
 The `key` is a unique identifier of the request, normally the URL of the API. And the `fetcher` accepts
 `key` as its parameter and returns the data asynchronously.
 
@@ -79,16 +79,16 @@ Check out [swr.vercel.app](https://swr.vercel.app) for more demos of SWR, and [E
 
 ## Usage
 
-Inside your React project directory, run the following:
+Inside your Preact project directory, run the following:
 
 ```
-yarn add swr
+yarn add preact-swr
 ```
 
 Or with npm:
 
 ```
-npm install swr
+npm install preact-swr
 ```
 
 ### API
@@ -164,7 +164,7 @@ The context `SWRConfig` can provide global configurations (`options`) for all SW
 In this example, all SWRs will use the same fetcher provided to load JSON data, and refresh every 3 seconds by default:
 
 ```js
-import useSWR, { SWRConfig } from 'swr'
+import useSWR, { SWRConfig } from 'preact-swr'
 
 function Dashboard() {
   const { data: events } = useSWR('/api/events')
@@ -308,7 +308,7 @@ This example shows how to automatically refetch the login info (e.g.: inside `<P
 when the user clicks the “Logout” button.
 
 ```js
-import useSWR, { mutate } from 'swr'
+import useSWR, { mutate } from 'preact-swr'
 
 function App() {
   return (
@@ -337,7 +337,7 @@ With `mutate`, you can update your local data programmatically, while
 revalidating and finally replace it with the latest data.
 
 ```js
-import useSWR, { mutate } from 'swr'
+import useSWR, { mutate } from 'preact-swr'
 
 function Profile() {
   const { data } = useSWR('/api/user', fetcher)
@@ -404,7 +404,7 @@ The SWR object returned by `useSWR` also contains a `mutate()` function that is 
 It is functionally equivalent to the global `mutate` function but does not require the `key` parameter.
 
 ```js
-import useSWR from 'swr'
+import useSWR from 'preact-swr'
 
 function Profile() {
   const { data, mutate } = useSWR('/api/user', fetcher)
@@ -453,7 +453,7 @@ You can enable the `suspense` option to use SWR with React Suspense:
 
 ```js
 import { Suspense } from 'react'
-import useSWR from 'swr'
+import useSWR from 'preact-swr'
 
 function Profile() {
   const { data } = useSWR('/api/user', fetcher, { suspense: true })
@@ -522,7 +522,7 @@ SWR deduplicates requests by default. If you call the hook with the same key mul
 Here, the 'api/user' key is used in two requests:
 
 ```js
-import useSWR from 'swr'
+import useSWR from 'preact-swr'
 
 function UserProfileName() {
   const { data, error } = useSWR('/api/user', fetcher)

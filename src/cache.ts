@@ -62,8 +62,8 @@ export default class Cache implements CacheInterface {
       key = String(key || '')
     }
 
-    const errorKey = key ? 'err@' + key : ''
-    const isValidatingKey = key ? 'validating@' + key : ''
+    const errorKey = key ? `err@${  key}` : ''
+    const isValidatingKey = key ? `validating@${  key}` : ''
 
     return [key, args, errorKey, isValidatingKey]
   }

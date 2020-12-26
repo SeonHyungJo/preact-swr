@@ -7,7 +7,7 @@ import {
   useRef,
   useMemo,
   useDebugValue
-} from 'react'
+} from 'preact/hooks'
 
 import defaultConfig, { cache } from './config'
 import SWRConfigContext from './swr-config-context'
@@ -245,13 +245,11 @@ function useSWR<Data = any, Error = any>(
   if (args.length > 2) {
     fn = args[1]
     config = args[2]
-  } else {
-    if (typeof args[1] === 'function') {
+  } else if (typeof args[1] === 'function') {
       fn = args[1]
     } else if (typeof args[1] === 'object') {
       config = args[1]
     }
-  }
 
   // we assume `key` as the identifier of the request
   // `key` can change but `fn` shouldn't
@@ -638,9 +636,9 @@ function useSWR<Data = any, Error = any>(
       if (shouldRevalidate) {
         if (dedupe) {
           return softRevalidate()
-        } else {
+        } 
           return revalidate()
-        }
+        
       }
       return false
     }
@@ -706,21 +704,21 @@ function useSWR<Data = any, Error = any>(
         // `key` might be changed in the upcoming hook re-render,
         // but the previous state will stay
         // so we need to match the latest key and data (fallback to `initialData`)
-        get: function() {
+        get() {
           stateDependencies.current.error = true
           return keyRef.current === key ? stateRef.current.error : initialError
         },
         enumerable: true
       },
       data: {
-        get: function() {
+        get() {
           stateDependencies.current.data = true
           return keyRef.current === key ? stateRef.current.data : initialData
         },
         enumerable: true
       },
       isValidating: {
-        get: function() {
+        get() {
           stateDependencies.current.isValidating = true
           return key ? stateRef.current.isValidating : false
         },
