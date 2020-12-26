@@ -1,6 +1,6 @@
 {
   "name": "preact-swr",
-  "version": "0.3.12",
+  "version": "0.3.14",
   "description": "Preact Hooks library for remote data fetching",
   "main": "./dist/index.js",
   "module": "./esm/index.js",
@@ -50,6 +50,6 @@
   "dependencies": {
     "@testing-library/preact": "2.0.1",
     "dequal": "2.0.2",
-    "preact": "10.5.7"
+    "preact": "^10.4.8"
   }
 }
